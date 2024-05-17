@@ -1,0 +1,62 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${OAUTH2_RESOURCE_SERVER_JWT_ISSUER_URI} # "http://localhost:18080/realms/celestial-forge"
+  jpa:
+    open-in-view: false
+    generate-ddl: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: 'true'
+      #        generate_statistics: 'true'
+      jakarta:
+        persistence:
+          sharedCache:
+            mode: ALL
+    database: default
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: create
+  datasource:
+    username: sa
+    password: sa
+    url: jdbc:h2:mem:mydb
+    driver-class-name: org.h2.Driver
+    generate-unique-name: 'false'
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+
+logging:
+  level:
+    graphql: TRACE
+    org:
+      springframework:
+        security: DEBUG
+        graphql: TRACE
+      hibernate:
+        #        stat: DEBUG
+        #        SQL: DEBUG
+        #        type.descriptor.sql: TRACE
+        orm.jdbc.bind: TRACE
+
+## Spring Boot actuator endpoints
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoint:
+    health:
+      group:
+        custom:
+          showComponents: always
+          showDetails: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'

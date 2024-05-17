@@ -1,0 +1,64 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${OAUTH2_RESOURCE_SERVER_JWT_ISSUER_URI} # http://localhost:18080/realms/celestial-forge
+  jpa:
+    generate-ddl: 'true'
+    show-sql: true
+    database: default
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+      max_allowed_packet: '2000'
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    url: ${JDBC_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driverClassName: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      pool-name: ToDoHikariPool
+      minimum-idle: 5
+      maximum-pool-size: 20
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      validation-timeout: 5000
+      connection-test-query: SELECT 1
+      leak-detection-threshold: 60000
+
+
+logging:
+  level:
+    graphql: TRACE
+    org:
+      springframework:
+        security: DEBUG
+        graphql: TRACE
+      hibernate:
+        #        stat: DEBUG
+        #        SQL: DEBUG
+        #        type.descriptor.sql: TRACE
+        orm.jdbc.bind: TRACE
+
+## Spring Boot actuator endpoints
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  endpoint:
+    health:
+      group:
+        custom:
+          showComponents: always
+          showDetails: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'

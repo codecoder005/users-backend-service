@@ -1,0 +1,30 @@
+extend type Mutation {
+    auth: AuthenticationMutationOperations
+}
+type AuthenticationMutationOperations {
+    login(credentials: AuthenticationRequest!): AuthenticationResponse
+    register(details: RegistrationRequest!): RegistrationResponse
+}
+
+input AuthenticationRequest {
+    email: String!
+    password: String!
+}
+input RegistrationRequest {
+    name: String!
+    email: String!
+    password: String!
+    roles: String!
+}
+type AuthenticationResponse {
+    uid: String
+    name: String
+    email: String
+    roles: [String]
+}
+type RegistrationResponse {
+    status: String
+    uid: ID
+    email: String
+    registeredOn: String
+}

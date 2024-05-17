@@ -1,0 +1,9 @@
+spring:
+  graphql:
+    graphiql:
+      enabled: true
+      path: /graphiql
+  application:
+    name: users-backend-service
+  profiles:
+    active: ${APP_ENVIRONMENT}

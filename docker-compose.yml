@@ -1,0 +1,70 @@
+services:
+  database:
+    container_name: mysql-ubs-instance
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - C:\Users\lenovo\Docker\mysql:/var/lib/mysql
+#      - mysql_data:/var/lib/mysql
+    restart: always
+    networks:
+      - ubs_network
+
+  keycloak:
+    container_name: keycloak-dev
+    image: quay.io/keycloak/keycloak:24.0.3
+    ports:
+      - "18080:8080"
+      - "18443:8443"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command: start-dev
+    volumes:
+      #      - keycloak_data:/opt/jboss/keycloak/standalone/data
+      - keycloak_data:/opt/keycloak/data/h2
+    networks:
+      - ubs_network
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8080/realms/celestial-forge" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+  ubs:
+    container_name: ubs-backend-api
+    image: codecoder005/ubs:latest
+    ports:
+      - "8080:8080"
+    environment:
+      APP_ENVIRONMENT: dev
+      JDBC_URL: jdbc:mysql://mysql-ubs-instance:3306/users_backend_service?createDatabaseIfNotExist=true
+      DB_USERNAME: root
+      DB_PASSWORD: password
+      OAUTH2_RESOURCE_SERVER_JWT_ISSUER_URI: http://keycloak-dev:8080/realms/celestial-forge # here port no should be internal of doc.cont
+    depends_on:
+      - database
+      - keycloak
+    networks:
+      - ubs_network
+
+networks:
+  ubs_network:
+    driver: bridge
+
+volumes:
+  keycloak_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: 'C:\Users\lenovo\Docker\keycloak'
+#  mysql_data:
+#    driver: local
+#    driver_opts:
+#      type: none
+#      o: bind
+#      device: 'C:\Users\lenovo\Docker\mysql'
+
