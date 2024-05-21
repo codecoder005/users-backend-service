@@ -33,22 +33,49 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-  ubs:
-    container_name: ubs-backend-api
-    image: codecoder005/ubs:latest
+
+  prometheus:
+    container_name: prometheus-dev
+    image: prom/prometheus
     ports:
-      - "8080:8080"
-    environment:
-      APP_ENVIRONMENT: dev
-      JDBC_URL: jdbc:mysql://mysql-ubs-instance:3306/users_backend_service?createDatabaseIfNotExist=true
-      DB_USERNAME: root
-      DB_PASSWORD: password
-      OAUTH2_RESOURCE_SERVER_JWT_ISSUER_URI: http://keycloak-dev:8080/realms/celestial-forge # here port no should be internal of doc.cont
-    depends_on:
-      - database
-      - keycloak
+      - "9090:9090"
+    volumes:
+#      - prometheus_data:/etc/prometheus
+      - C:/Users/lenovo/Docker/prometheus:/etc/prometheus
     networks:
       - ubs_network
+    depends_on:
+      - keycloak
+  grafana:
+    container_name: grafana-dev
+    image: grafana/grafana-enterprise
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+    networks:
+      - ubs_network
+    depends_on:
+      - prometheus
+#  ubs:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    container_name: ubs-backend-api
+#    image: codecoder005/ubs:latest
+#    ports:
+#      - "8080:8080"
+#    environment:
+#      APP_ENVIRONMENT: dev
+#      JDBC_URL: jdbc:mysql://mysql-ubs-instance:3306/users_backend_service?createDatabaseIfNotExist=true
+#      DB_USERNAME: root
+#      DB_PASSWORD: password
+#      OAUTH2_RESOURCE_SERVER_JWT_ISSUER_URI: http://keycloak-dev:8080/realms/celestial-forge # here port no should be internal of doc.cont
+#    depends_on:
+#      - database
+#      - keycloak
+#    networks:
+#      - ubs_network
 
 networks:
   ubs_network:
@@ -60,11 +87,21 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: 'C:\Users\lenovo\Docker\keycloak'
-#  mysql_data:
-#    driver: local
-#    driver_opts:
-#      type: none
-#      o: bind
-#      device: 'C:\Users\lenovo\Docker\mysql'
-
+      device: C:\Users\lenovo\Docker\keycloak
+  mysql_data:
+    driver: local
+    driver_opts:
+      device: C:\Users\lenovo\Docker\mysql
+  prometheus_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: C:/Users/lenovo/Docker/prometheus
+#      device: C:/Users/lenovo/Downloads/version-control/popcorn/users-backend-service/src/main/resources/prometheus
+  grafana_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: C:/Users/lenovo/Docker/grafana

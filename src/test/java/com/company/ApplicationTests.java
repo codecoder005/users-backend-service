@@ -9,11 +9,11 @@ import org.springframework.test.context.ActiveProfiles;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles(profiles = {"unit-test"})
 @Import(TestSecurityConfiguration.class)
-class
-ApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }
