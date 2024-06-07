@@ -1,4 +1,27 @@
 services:
+  vault:
+    image: hashicorp/vault:latest
+    container_name: vault
+    ports:
+      - "8200:8200"
+    restart: always
+    volumes:
+      - C:\Users\lenovo\Docker\vault\volumes\logs:/vault/logs
+      - C:\Users\lenovo\Docker\vault\volumes\file:/vault/file
+      - C:\Users\lenovo\Docker\vault\volumes\config:/vault/config
+    cap_add:
+      - IPC_LOCK
+    entrypoint: vault server -config=/vault/config/vault.json
+  redis-stack:
+    container_name: redis-server
+    image: redis/redis-stack:latest
+    ports:
+      - "6379:6379"
+      - "8001:8001"
+    volumes:
+      - redis_cache_data:/data
+    networks:
+      - ubs_network
   database:
     container_name: mysql-ubs-instance
     image: mysql:latest
@@ -57,6 +80,43 @@ services:
       - ubs_network
     depends_on:
       - prometheus
+  maildev:
+    image: maildev/maildev
+    container_name: maildev
+    ports:
+      - "1025:1025"   # SMTP port
+      - "1080:1080"   # HTTP port for the web interface
+    restart: always
+    networks:
+      - ubs_network
+  zookeeper:
+    container_name: zookeeper
+    image: confluentinc/cp-zookeeper
+    environment:
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "22181:2181"
+    networks:
+      - ubs_network
+  kafka:
+    container_name: kafka-01
+    image: confluentinc/cp-kafka
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: "PLAINTEXT:PLAINTEXT, PLAINTEXT_HOST: PLAINTEXT"
+      KAFKA_ADVERTISED_LISTENERS: "PLAINTEXT://localhost:9092"
+    networks:
+      - ubs_network
+
 #  ubs:
 #    build:
 #      context: .
@@ -82,6 +142,7 @@ networks:
     driver: bridge
 
 volumes:
+  redis_cache_data:
   keycloak_data:
     driver: local
     driver_opts:

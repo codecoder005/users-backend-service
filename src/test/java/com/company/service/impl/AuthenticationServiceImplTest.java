@@ -24,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles(profiles = {"unit-test"})
 @Import(TestSecurityConfiguration.class)
 class AuthenticationServiceImplTest {
@@ -61,6 +61,7 @@ class AuthenticationServiceImplTest {
                 .uid(uid)
                 .email("john.doe@email.com")
                 .name("John Doe")
+                .password("password")
                 .roles("admin,user")
                 .build();
         when(userRepository.findByEmailAndPassword(anyString(), anyString()))
