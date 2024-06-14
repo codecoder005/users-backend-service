@@ -1,8 +1,12 @@
 package com.company.common;
 
+import lombok.Getter;
+
 public final class AppConstants {
     public static final class Regex {
         public static final String REGEX_FULL_NAME = "^[A-Za-z]{2,}(?:\\s[A-Za-z]+)*$";
+        public static final String REGEX_AADHAR_NO = "^[1-9]\\d{3}-\\d{4}-\\d{4}$";
+        public static final String REGEX_PAN = "^[A-Z]{5}[0-9]{4}[A-Z]{1}$";
     }
     public static final class ErrorMessage {
         public static final String NAME_REQUIRED = "name is required";
@@ -22,6 +26,8 @@ public final class AppConstants {
     }
     public static final class Values {
         public static final String SUCCESS_STRING_UPPER = "SUCCESS";
+        public static final String SYSTEM_UUID = "f72cca88-8e22-42c4-947a-a0b976544d32";
+        public static final String SYSTEM_DEFAULT_EMAIL_ADDRESS = "no-reply@company.com";
     }
     public static final class API {
         public static final String REGISTRATION_API = "/api/v1/auth/register";
@@ -33,5 +39,21 @@ public final class AppConstants {
         public static final String COMMA_STRING = ",";
         public static final String PULLSTOP_STRING = ".";
         public static final String PIPE_STRING = "|";
+    }
+    public static final class EmailTemplate {
+        public static final String TRANSFER_REQUEST_SUCCESS_TEMPLATE = "transfer_request_success_template";
+        public static final String DEPOSIT_REQUEST_SUCCESS_TEMPLATE = "deposit_request_success_template";
+        public static final String WITHDRAW_REQUEST_SUCCESS_TEMPLATE = "transfer_request_success_template";
+
+        public static final String CUSTOMER_CREATED_SUCCESS_TEMPLATE = "customer_created_success_template";
+        public static final String BANK_ACCOUNT_CREATED_SUCCESS_TEMPLATE = "bank_account_created_success_template";
+    }
+    public static final class GraphDB {
+        public static final class Relationship {
+            public static final String PLAYS_FOR = "PLAYS_FOR";
+            public static final String PLAYED_FOR = "PLAYED_FOR";
+            public static final String CAPTAINED = "CAPTAINED";
+            public static final String CAPTAINS = "CAPTAINS";
+        }
     }
 }

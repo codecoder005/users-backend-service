@@ -27,7 +27,16 @@ public class AppSecurityConfiguration {
             "/swagger-ui.html",
             "/api/v1/auth/**",
             "/graphiql/**",
-            "/graphql/**"
+            "/graphql/**",
+            "/actuator/**",
+            "/api/v1/transactions/**",
+            "/api/v1/accounts/**",
+            "/api/v1/customers/**",
+            "/api/v1/banking/**",
+            "/api/v1/jsonplaceholder/**",
+            "/api/v1/kafka/**",
+            "/api/v1/players/**",
+            "/api/v1/teams/**"
     };
 
     @Bean
@@ -36,7 +45,7 @@ public class AppSecurityConfiguration {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(WHITE_LIST_URI).permitAll()
-                            .requestMatchers("/actuator/**").hasRole("client_admin")
+//                            .requestMatchers("/actuator/**").hasRole("client_admin")
                             .anyRequest()
                             .authenticated();
                 })

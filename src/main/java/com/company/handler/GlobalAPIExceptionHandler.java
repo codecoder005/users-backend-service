@@ -3,9 +3,11 @@ package com.company.handler;
 import com.company.exception.AppException;
 import com.company.exception.UserNotFoundException;
 import com.company.model.ExceptionResponse;
+import com.flagsmith.exceptions.FlagsmithClientError;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -37,6 +39,27 @@ public class GlobalAPIExceptionHandler {
         exceptionResponse.setErrorMessage(ex.getMessage());
         exceptionResponse.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(exceptionResponse);
+    }
+
+    @ExceptionHandler(FlagsmithClientError.class)
+    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+    public ResponseEntity<ExceptionResponse> handleFlagsmithClientError(FlagsmithClientError ex) {
+        log.error("GlobalAPIExceptionHandler::FlagsmithClientError {}", ex.getMessage());
+        ExceptionResponse exceptionResponse = new ExceptionResponse();
+        exceptionResponse.setErrorMessage(ex.getMessage());
+        exceptionResponse.setStatusCode(HttpStatus.SERVICE_UNAVAILABLE.value());
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body(exceptionResponse);
+    }
+
+    @ExceptionHandler(HttpMessageConversionException.class)
+    public ResponseEntity<ExceptionResponse> handleHttpMessageConversionException(HttpMessageConversionException ex) {
+        log.error(ex.getMessage(), ex);
+        ExceptionResponse exceptionResponse = new ExceptionResponse();
+        exceptionResponse.setErrorMessage(ex.getMessage());
+        exceptionResponse.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(exceptionResponse);
     }
 
