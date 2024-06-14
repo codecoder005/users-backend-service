@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: users-backend-service
+  cloud:
+    vault:
+      application-name: users-backend-service
+      uri: http://localhost:8200
+      token: ${CLOUD_VAULT_TOKEN}
+      kv:
+        enabled: true
+        backend: secret
+        application-name: users-backend-service
+
+
+application:
+  security-token: ${TEST_SECURITY_TOKEN}
