@@ -34,7 +34,9 @@ public class AppSecurityConfiguration {
             "/api/v1/customers/**",
             "/api/v1/banking/**",
             "/api/v1/jsonplaceholder/**",
-            "/api/v1/kafka/**"
+            "/api/v1/kafka/**",
+            "/api/v1/players/**",
+            "/api/v1/teams/**"
     };
 
     @Bean

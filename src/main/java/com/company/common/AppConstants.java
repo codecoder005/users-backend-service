@@ -48,4 +48,12 @@ public final class AppConstants {
         public static final String CUSTOMER_CREATED_SUCCESS_TEMPLATE = "customer_created_success_template";
         public static final String BANK_ACCOUNT_CREATED_SUCCESS_TEMPLATE = "bank_account_created_success_template";
     }
+    public static final class GraphDB {
+        public static final class Relationship {
+            public static final String PLAYS_FOR = "PLAYS_FOR";
+            public static final String PLAYED_FOR = "PLAYED_FOR";
+            public static final String CAPTAINED = "CAPTAINED";
+            public static final String CAPTAINS = "CAPTAINS";
+        }
+    }
 }
