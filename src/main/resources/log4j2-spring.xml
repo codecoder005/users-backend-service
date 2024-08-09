@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" monitorInterval="30">
+    <Properties>
+        <!-- Define common properties -->
+        <Property name="LOG_PATTERN">%style{%d{ISO8601}}{cyan} %highlight{%-5level }[%style{%t}{bright,blue}] [%style{%T}{bright,green}] [%style{%X{user}}{bright,red}] [%style{%logger{36}}{bright,magenta}] [%style{%F:%L}{bright,cyan}] %style{%C{1.}.%M}{bright,yellow} - %msg%n%throwable</Property>
+        <Property name="LOG_FILE_NAME">logs/app-log.log</Property>
+        <Property name="ARCHIVE_PATTERN">logs/app-log-%d{yyyy-MM-dd}-%i.log.gz</Property>
+        <Property name="SPLUNK_URL">http://localhost:8088</Property>
+        <Property name="SPLUNK_TOKEN">b0c9862f-ef93-4ca3-a272-5cc135476bba</Property>
+        <Property name="SPLUNK_INDEX">index_cucumber_spring_boot_bdd</Property>
+        <Property name="SPLUNK_SOURCE">anything-http-event-logs</Property>
+        <Property name="SPLUNK_SOURCETYPE">log4j</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+        </Console>
+
+        <!-- Rolling File Appender with policies -->
+        <RollingFile name="FileAppender" fileName="${LOG_FILE_NAME}" filePattern="${ARCHIVE_PATTERN}">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="7" /> <!-- Retain up to 7 archived logs -->
+        </RollingFile>
+
+        <!-- Splunk HTTP Appender -->
+        <SplunkHttp
+                name="SplunkAppender"
+                url="${SPLUNK_URL}"
+                token="${SPLUNK_TOKEN}"
+                host="localhost"
+                index="${SPLUNK_INDEX}"
+                type="raw"
+                source="${SPLUNK_SOURCE}"
+                sourcetype="${SPLUNK_SOURCETYPE}"
+                messageFormat="text"
+                disableCertificateValidation="true">
+            <PatternLayout pattern="%m" />
+            <!-- Optional: Filters to control what logs are sent to Splunk -->
+            <Filters>
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </SplunkHttp>
+
+        <!-- Add more appenders as needed -->
+    </Appenders>
+
+    <Loggers>
+        <!-- Asynchronous Logger for specific packages -->
+        <AsyncLogger name="com.company" level="debug" additivity="false">
+            <AppenderRef ref="ConsoleAppender" />
+            <AppenderRef ref="FileAppender" />
+            <AppenderRef ref="SplunkAppender" />
+        </AsyncLogger>
+
+        <!-- Asynchronous Root Logger -->
+        <AsyncRoot level="info">
+            <AppenderRef ref="ConsoleAppender" />
+            <AppenderRef ref="FileAppender" />
+            <AppenderRef ref="SplunkAppender" />
+        </AsyncRoot>
+
+        <!-- Logger for error handling and exceptions -->
+        <Logger name="com.company.error" level="error" additivity="false">
+            <AppenderRef ref="FileAppender" />
+            <AppenderRef ref="SplunkAppender" />
+        </Logger>
+
+        <!-- Optional: Logger with specific filters or custom settings -->
+        <Logger name="com.company.custom" level="trace" additivity="false">
+            <AppenderRef ref="ConsoleAppender" />
+            <Filters>
+                <MarkerFilter marker="CUSTOM_MARKER" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </Logger>
+    </Loggers>
+</Configuration>
