@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" monitorInterval="30">
+    <Properties>
+        <!-- Define common properties -->
+        <Property name="LOG_PATTERN">%style{%d{ISO8601}}{cyan} %highlight{%-5level }[%style{%t}{bright,blue}] [%style{%T}{bright,green}] [%style{%logger{36}}{bright,magenta}] [%style{%F:%L}{bright,cyan}] %style{%C{1.}.%M}{bright,yellow} - %msg%n%throwable</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <!-- Logger configuration for unit testing -->
+        <Root level="debug">
+            <AppenderRef ref="ConsoleAppender" />
+        </Root>
+
+        <Logger name="com.company" level="debug" additivity="false">
+            <AppenderRef ref="ConsoleAppender" />
+        </Logger>
+
+        <Logger name="com.company.error" level="error" additivity="false">
+            <AppenderRef ref="ConsoleAppender" />
+        </Logger>
+
+        <Logger name="com.company.custom" level="trace" additivity="false">
+            <AppenderRef ref="ConsoleAppender" />
+        </Logger>
+    </Loggers>
+</Configuration>
