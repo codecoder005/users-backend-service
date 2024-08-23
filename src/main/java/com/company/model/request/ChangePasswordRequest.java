@@ -1,4 +1,4 @@
-package com.company.model;
+package com.company.model.request;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;

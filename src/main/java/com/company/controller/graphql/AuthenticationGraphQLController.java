@@ -1,6 +1,10 @@
 package com.company.controller.graphql;
 
 import com.company.model.*;
+import com.company.model.request.AuthenticationRequest;
+import com.company.model.request.RegistrationRequest;
+import com.company.model.response.AuthenticationResponse;
+import com.company.model.response.RegistrationResponse;
 import com.company.service.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

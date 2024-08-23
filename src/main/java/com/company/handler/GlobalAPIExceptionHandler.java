@@ -2,7 +2,7 @@ package com.company.handler;
 
 import com.company.exception.AppException;
 import com.company.exception.UserNotFoundException;
-import com.company.model.ExceptionResponse;
+import com.company.model.response.ExceptionResponse;
 import com.flagsmith.exceptions.FlagsmithClientError;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

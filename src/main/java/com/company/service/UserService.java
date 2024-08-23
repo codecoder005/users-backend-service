@@ -1,8 +1,8 @@
 package com.company.service;
 
 import com.company.dto.UserDto;
-import com.company.model.ChangePasswordRequest;
-import com.company.model.UpdateUserRequest;
+import com.company.model.request.ChangePasswordRequest;
+import com.company.model.request.UpdateUserRequest;
 
 import java.util.List;
 import java.util.UUID;

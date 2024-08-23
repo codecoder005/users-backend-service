@@ -1,5 +1,6 @@
 package com.company.model;
 
+import com.company.model.response.AuthenticationResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

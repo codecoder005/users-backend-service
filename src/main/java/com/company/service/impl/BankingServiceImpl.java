@@ -1,6 +1,5 @@
 package com.company.service.impl;
 
-import com.company.common.AppConstants;
 import com.company.config.AppFeatureFlags;
 import com.company.entity.BankAccountEntity;
 import com.company.entity.TransactionEntity;
@@ -10,6 +9,14 @@ import com.company.exception.AccountNotFoundException;
 import com.company.exception.FeatureDisabledException;
 import com.company.exception.InsufficientBalanceException;
 import com.company.model.*;
+import com.company.model.request.AmountTransferRequest;
+import com.company.model.request.DepositRequest;
+import com.company.model.request.RefundRequest;
+import com.company.model.request.WithdrawRequest;
+import com.company.model.response.AmountTransferResponse;
+import com.company.model.response.DepositResponse;
+import com.company.model.response.RefundResponse;
+import com.company.model.response.WithdrawResponse;
 import com.company.repository.BankAccountRepository;
 import com.company.repository.TransactionRepository;
 import com.company.service.BankingService;

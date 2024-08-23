@@ -1,7 +1,7 @@
 package com.company.controller.graphql;
 
 import com.company.dto.UserDto;
-import com.company.model.UpdateUserRequest;
+import com.company.model.request.UpdateUserRequest;
 import com.company.model.UserMutationOperations;
 import com.company.model.UserQueryOperations;
 import com.company.service.UserService;

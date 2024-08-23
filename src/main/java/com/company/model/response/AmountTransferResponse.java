@@ -1,7 +1,6 @@
-package com.company.model;
+package com.company.model.response;
 
 import com.company.entity.TransactionStatus;
-import com.company.entity.TransactionType;
 import lombok.*;
 
 import java.math.BigDecimal;

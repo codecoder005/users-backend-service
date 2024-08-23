@@ -1,8 +1,10 @@
 package com.company.controller.rest;
 
+import com.company.api.PingAPI;
 import com.company.dto.UserDto;
-import com.company.model.ChangePasswordRequest;
-import com.company.model.UpdateUserRequest;
+import com.company.model.request.ChangePasswordRequest;
+import com.company.model.request.UpdateUserRequest;
+import com.company.model.response.PingAPIResponse;
 import com.company.service.UserService;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,8 +44,18 @@ import static com.company.common.AppConstants.Names.SECURITY_REQUIREMENT_BEARER_
         )
 )
 @SecurityRequirement(name = SECURITY_REQUIREMENT_BEARER_AUTH)
-public class UserController {
+public class UserController implements PingAPI {
     private final UserService userService;
+
+    @Override
+    public PingAPIResponse ping() {
+        log.info("UserController::ping");
+        return PingAPIResponse.builder()
+                .status(200)
+                .message("Up and Healthy")
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
 
     @Operation(summary = "Get all users", description = "Retrieve a list of all users.", operationId = "getAllUsers")
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})

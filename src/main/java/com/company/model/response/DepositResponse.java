@@ -1,4 +1,4 @@
-package com.company.model;
+package com.company.model.response;
 
 import com.company.entity.TransactionStatus;
 import lombok.*;

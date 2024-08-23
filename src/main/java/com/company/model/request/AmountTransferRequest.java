@@ -1,5 +1,6 @@
-package com.company.model;
+package com.company.model.request;
 
+import com.company.model.ElectronicMoneyTransferSystem;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;

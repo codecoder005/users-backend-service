@@ -1,10 +1,12 @@
 package com.company.controller.rest;
 
+import com.company.api.PingAPI;
 import com.company.dto.CustomerDto;
-import com.company.model.CreateNewCustomerRequest;
-import com.company.model.CreateNewCustomerResponse;
-import com.company.model.UpdateCustomerDetailsRequest;
-import com.company.model.UpdateCustomerDetailsResponse;
+import com.company.model.request.CreateNewCustomerRequest;
+import com.company.model.response.CreateNewCustomerResponse;
+import com.company.model.request.UpdateCustomerDetailsRequest;
+import com.company.model.response.PingAPIResponse;
+import com.company.model.response.UpdateCustomerDetailsResponse;
 import com.company.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,9 +25,19 @@ import java.util.UUID;
 @RequestMapping("/api/v1/customers")
 @RequiredArgsConstructor
 @Slf4j
-public class CustomerController {
+public class CustomerController implements PingAPI {
     private final CustomerService customerService;
     private final ModelMapper modelMapper;
+
+    @Override
+    public PingAPIResponse ping() {
+        log.info("CustomerController::ping");
+        return PingAPIResponse.builder()
+                .status(200)
+                .message("Up and Healthy")
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
 
     @PostMapping(
             consumes = {MediaType.APPLICATION_JSON_VALUE},

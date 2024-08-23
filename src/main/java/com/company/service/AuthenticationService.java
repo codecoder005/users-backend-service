@@ -1,9 +1,9 @@
 package com.company.service;
 
-import com.company.model.AuthenticationRequest;
-import com.company.model.AuthenticationResponse;
-import com.company.model.RegistrationRequest;
-import com.company.model.RegistrationResponse;
+import com.company.model.request.AuthenticationRequest;
+import com.company.model.response.AuthenticationResponse;
+import com.company.model.request.RegistrationRequest;
+import com.company.model.response.RegistrationResponse;
 
 public interface AuthenticationService {
     RegistrationResponse register(RegistrationRequest request);

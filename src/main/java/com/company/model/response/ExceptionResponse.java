@@ -1,8 +1,7 @@
-package com.company.model;
+package com.company.model.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
-import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 import java.util.Map;

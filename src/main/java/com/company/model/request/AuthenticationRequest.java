@@ -1,4 +1,4 @@
-package com.company.model;
+package com.company.model.request;
 
 import com.company.common.AppConstants;
 import jakarta.validation.constraints.Email;

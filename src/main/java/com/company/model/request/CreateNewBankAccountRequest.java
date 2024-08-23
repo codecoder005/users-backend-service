@@ -1,4 +1,4 @@
-package com.company.model;
+package com.company.model.request;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotEmpty;
