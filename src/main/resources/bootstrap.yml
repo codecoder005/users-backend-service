@@ -1,4 +1,6 @@
 spring:
+  graphql:
+    path: /graphql
   application:
     name: users-backend-service
   cloud:

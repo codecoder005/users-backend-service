@@ -1,11 +1,9 @@
 package com.company.controller.rest;
 
-import com.company.model.AmountTransferRequest;
+import com.company.model.request.AmountTransferRequest;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.producer.Callback;
-import org.apache.kafka.clients.producer.RecordMetadata;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

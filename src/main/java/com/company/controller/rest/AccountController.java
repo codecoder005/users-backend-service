@@ -1,8 +1,10 @@
 package com.company.controller.rest;
 
+import com.company.api.PingAPI;
 import com.company.dto.BankAccountDto;
-import com.company.model.CreateNewBankAccountRequest;
-import com.company.model.CreateNewBankAccountResponse;
+import com.company.model.request.CreateNewBankAccountRequest;
+import com.company.model.response.CreateNewBankAccountResponse;
+import com.company.model.response.PingAPIResponse;
 import com.company.service.AccountService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,8 +22,18 @@ import java.util.UUID;
 @RequestMapping("/api/v1/accounts")
 @RequiredArgsConstructor
 @Slf4j
-public class AccountController {
+public class AccountController implements PingAPI {
     private final AccountService accountService;
+
+    @Override
+    public PingAPIResponse ping() {
+        log.info("AccountController::ping");
+        return PingAPIResponse.builder()
+                .status(200)
+                .message("Up and Healthy")
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
 
     @PostMapping(
             consumes = {MediaType.APPLICATION_JSON_VALUE},

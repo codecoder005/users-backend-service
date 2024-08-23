@@ -1,6 +1,13 @@
 package com.company.controller.rest;
 
-import com.company.model.*;
+import com.company.api.PingAPI;
+import com.company.model.request.AmountTransferRequest;
+import com.company.model.request.DepositRequest;
+import com.company.model.request.WithdrawRequest;
+import com.company.model.response.AmountTransferResponse;
+import com.company.model.response.DepositResponse;
+import com.company.model.response.PingAPIResponse;
+import com.company.model.response.WithdrawResponse;
 import com.company.service.BankingService;
 import com.flagsmith.exceptions.FlagsmithClientError;
 import jakarta.validation.Valid;
@@ -14,12 +21,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("/api/v1/banking")
 @RequiredArgsConstructor
 @Slf4j
-public class BankingController {
+public class BankingController implements PingAPI {
     private final BankingService bankingService;
+
+    @Override
+    public PingAPIResponse ping() {
+        log.info("BankingController::ping");
+        return PingAPIResponse.builder()
+                .status(200)
+                .message("Up and Healthy")
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
 
     @PostMapping(
             value = "/transfer",

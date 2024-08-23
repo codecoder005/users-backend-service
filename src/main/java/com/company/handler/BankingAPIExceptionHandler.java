@@ -1,7 +1,7 @@
 package com.company.handler;
 
 import com.company.exception.*;
-import com.company.model.ExceptionResponse;
+import com.company.model.response.ExceptionResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

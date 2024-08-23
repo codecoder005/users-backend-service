@@ -2,8 +2,8 @@ package com.company.controller.graphql;
 
 import com.company.common.AppConstants;
 import com.company.config.TestSecurityConfiguration;
-import com.company.model.AuthenticationResponse;
-import com.company.model.RegistrationResponse;
+import com.company.model.response.AuthenticationResponse;
+import com.company.model.response.RegistrationResponse;
 import com.company.service.impl.AuthenticationServiceImpl;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.DisplayName;

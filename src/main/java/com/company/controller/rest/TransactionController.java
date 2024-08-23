@@ -1,6 +1,8 @@
 package com.company.controller.rest;
 
+import com.company.api.PingAPI;
 import com.company.dto.TransactionDto;
+import com.company.model.response.PingAPIResponse;
 import com.company.service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,8 +22,18 @@ import java.util.UUID;
 @RequestMapping("/api/v1/transactions")
 @RequiredArgsConstructor
 @Slf4j
-public class TransactionController {
+public class TransactionController implements PingAPI {
     private final TransactionService transactionService;
+
+    @Override
+    public PingAPIResponse ping() {
+        log.info("TransactionController::ping");
+        return PingAPIResponse.builder()
+                .status(200)
+                .message("Up and Healthy")
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
 
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<TransactionDto>> getAllTransactions() {

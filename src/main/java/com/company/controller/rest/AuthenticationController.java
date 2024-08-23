@@ -1,9 +1,11 @@
 package com.company.controller.rest;
 
-import com.company.model.AuthenticationRequest;
-import com.company.model.AuthenticationResponse;
-import com.company.model.RegistrationRequest;
-import com.company.model.RegistrationResponse;
+import com.company.api.PingAPI;
+import com.company.model.request.AuthenticationRequest;
+import com.company.model.response.AuthenticationResponse;
+import com.company.model.request.RegistrationRequest;
+import com.company.model.response.PingAPIResponse;
+import com.company.model.response.RegistrationResponse;
 import com.company.service.AuthenticationService;
 import io.swagger.v3.oas.annotations.ExternalDocumentation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -34,8 +38,18 @@ import org.springframework.web.bind.annotation.RestController;
                 url = "https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/"
         )
 )
-public class AuthenticationController {
+public class AuthenticationController implements PingAPI {
     private final AuthenticationService authenticationService;
+
+    @Override
+    public PingAPIResponse ping() {
+        log.info("AuthenticationController::ping");
+        return PingAPIResponse.builder()
+                .status(200)
+                .message("Up and Healthy")
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
 
     @PostMapping(value = "/register", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<RegistrationResponse> register(
