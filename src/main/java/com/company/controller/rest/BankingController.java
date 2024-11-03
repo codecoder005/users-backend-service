@@ -1,5 +1,6 @@
 package com.company.controller.rest;
 
+import com.company.api.BankingAPI;
 import com.company.api.PingAPI;
 import com.company.model.request.AmountTransferRequest;
 import com.company.model.request.DepositRequest;
@@ -14,20 +15,16 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 
-@RestController
-@RequestMapping("/api/v1/banking")
+@Component
 @RequiredArgsConstructor
 @Slf4j
-public class BankingController implements PingAPI {
+public class BankingController implements PingAPI, BankingAPI {
     private final BankingService bankingService;
 
     @Override
@@ -40,11 +37,7 @@ public class BankingController implements PingAPI {
                 .build();
     }
 
-    @PostMapping(
-            value = "/transfer",
-            consumes = {MediaType.APPLICATION_JSON_VALUE},
-            produces = {MediaType.APPLICATION_JSON_VALUE}
-    )
+    @Override
     public ResponseEntity<AmountTransferResponse> transfer(
             @Valid @RequestBody AmountTransferRequest request
     ) throws FlagsmithClientError
@@ -54,14 +47,14 @@ public class BankingController implements PingAPI {
                 .body(bankingService.transfer(request));
     }
 
-    @PostMapping(value = "/deposit", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @Override
     public ResponseEntity<DepositResponse> deposit(@Valid @RequestBody DepositRequest request) throws FlagsmithClientError {
         log.info("BankingController::deposit");
         return ResponseEntity.status(HttpStatus.OK)
                 .body(bankingService.deposit(request));
     }
 
-    @PostMapping(value = "/withdraw", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @Override
     public ResponseEntity<WithdrawResponse> withdraw(@Valid @RequestBody WithdrawRequest request) {
         log.info("BankingController::withdraw");
         return ResponseEntity.status(HttpStatus.OK)

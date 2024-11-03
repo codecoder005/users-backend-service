@@ -4,7 +4,6 @@ services:
     container_name: vault
     ports:
       - "8200:8200"
-    restart: always
     volumes:
       - C:\Users\lenovo\Docker\vault\volumes\logs:/vault/logs
       - C:\Users\lenovo\Docker\vault\volumes\file:/vault/file
@@ -42,7 +41,6 @@ services:
     volumes:
       - C:\Users\lenovo\Docker\mysql:/var/lib/mysql
 #      - mysql_data:/var/lib/mysql
-    restart: always
     networks:
       - ubs_network
 
@@ -96,7 +94,6 @@ services:
     ports:
       - "1025:1025"   # SMTP port
       - "1080:1080"   # HTTP port for the web interface
-    restart: always
     networks:
       - ubs_network
   zookeeper:
