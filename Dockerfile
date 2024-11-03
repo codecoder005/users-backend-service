@@ -5,7 +5,7 @@ FROM alpine:latest
 RUN apk update && \
     apk add --no-cache curl
 
-FROM maven:3.8.7-openjdk-18 AS build
+FROM maven:3.9.9-amazoncorretto-17 AS build
 WORKDIR /build
 COPY pom.xml .
 RUN mvn dependency:go-offline
@@ -13,7 +13,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Runtime stage
-FROM openjdk:17.0.2-oracle
+FROM amazoncorretto:17.0.13
 
 WORKDIR /app
 COPY --from=build /build/target/users-backend-service-1.0.0.jar /app/
