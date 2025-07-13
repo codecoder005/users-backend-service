@@ -20,8 +20,16 @@
 		<java.version>17</java.version>
 		<sonar.login>squ_98f670ad1085c526a78299da8fb37c6d24f103a1</sonar.login>
 		<sonar.java.binaries>${project.basedir}/target</sonar.java.binaries>
-		<spring-cloud.version>2023.0.3</spring-cloud.version>
+		<spring-cloud.version>2025.0.0</spring-cloud.version>
+		<springdoc-openapi-starter-webmvc-ui.version>2.8.9</springdoc-openapi-starter-webmvc-ui.version>
+		<splunk-library-javalogging.version>1.11.8</splunk-library-javalogging.version>
 		<cucumber.version>7.18.1</cucumber.version>
+		<resilience4j.version>2.3.0</resilience4j.version>
+		<flagsmith-java-client.version>7.4.3</flagsmith-java-client.version>
+		<modelmapper.version>3.2.4</modelmapper.version>
+		<jackson-dataformat-xml.version>2.19.1</jackson-dataformat-xml.version>
+		<jedis.version>5.2.0</jedis.version>
+		<gson.version>2.13.1</gson.version>
 	</properties>
 
 	<repositories>
@@ -29,6 +37,16 @@
 			<id>splunk-artifactory</id>
 			<name>Splunk Releases</name>
 			<url>https://splunk.jfrog.io/splunk/ext-releases-local</url>
+		</repository>
+		<repository>
+			<id>mavenrepository</id>
+			<url>https://mavenrepository.com/repository/maven-public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
 		</repository>
 	</repositories>
 
@@ -79,7 +97,7 @@
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
-			<version>5.2.0</version>
+			<version>${jedis.version}</version>
 		</dependency>
 
 		<dependency>
@@ -98,7 +116,7 @@
 		<dependency>
 			<groupId>io.github.resilience4j</groupId>
 			<artifactId>resilience4j-spring-boot3</artifactId>
-			<version>2.2.0</version>
+			<version>${resilience4j.version}</version>
 		</dependency>
 
 		<dependency>
@@ -120,7 +138,7 @@
 		<dependency>
 			<groupId>com.flagsmith</groupId>
 			<artifactId>flagsmith-java-client</artifactId>
-			<version>7.4.3</version>
+			<version>${flagsmith-java-client.version}</version>
 		</dependency>
 
 		<!--
@@ -132,22 +150,23 @@
 		<dependency>
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
-			<version>3.2.4</version>
+			<version>${modelmapper.version}</version>
+
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-xml</artifactId>
-			<version>2.19.1</version>
+			<version>${jackson-dataformat-xml.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-			<version>2.13.1</version>
+			<version>${gson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>2.8.9</version>
+			<version>${springdoc-openapi-starter-webmvc-ui.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -169,7 +188,7 @@
 		<dependency>
 			<groupId>com.splunk.logging</groupId>
 			<artifactId>splunk-library-javalogging</artifactId>
-			<version>1.11.8</version>
+			<version>${splunk-library-javalogging.version}</version>
 			<scope>runtime</scope>
 		</dependency>
 
