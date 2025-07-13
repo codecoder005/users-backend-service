@@ -17,13 +17,12 @@
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
-		<java.version>17</java.version>
+		<java.version>21</java.version>
 		<sonar.login>squ_98f670ad1085c526a78299da8fb37c6d24f103a1</sonar.login>
 		<sonar.java.binaries>${project.basedir}/target</sonar.java.binaries>
 		<spring-cloud.version>2025.0.0</spring-cloud.version>
 		<springdoc-openapi-starter-webmvc-ui.version>2.8.9</springdoc-openapi-starter-webmvc-ui.version>
 		<splunk-library-javalogging.version>1.11.8</splunk-library-javalogging.version>
-		<cucumber.version>7.18.1</cucumber.version>
 		<resilience4j.version>2.3.0</resilience4j.version>
 		<flagsmith-java-client.version>7.4.3</flagsmith-java-client.version>
 		<modelmapper.version>3.2.4</modelmapper.version>
@@ -227,30 +226,11 @@
 			<artifactId>spring-graphql-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-java</artifactId>
-			<version>${cucumber.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-junit-platform-engine</artifactId>
-			<version>${cucumber.version}</version>
-			<scope>test</scope>
-		</dependency>
 
 		<dependency>
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-suite</artifactId>
 			<version>1.11.0</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>io.cucumber</groupId>
-			<artifactId>cucumber-spring</artifactId>
-			<version>${cucumber.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
