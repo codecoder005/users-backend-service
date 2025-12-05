@@ -24,7 +24,7 @@
 		<springdoc-openapi-starter-webmvc-ui.version>2.8.9</springdoc-openapi-starter-webmvc-ui.version>
 		<splunk-library-javalogging.version>1.11.8</splunk-library-javalogging.version>
 		<resilience4j.version>2.3.0</resilience4j.version>
-		<flagsmith-java-client.version>7.4.3</flagsmith-java-client.version>
+		<flagsmith-java-client.version>8.0.0</flagsmith-java-client.version>
 		<modelmapper.version>3.2.4</modelmapper.version>
 		<jackson-dataformat-xml.version>2.19.1</jackson-dataformat-xml.version>
 		<jedis.version>5.2.0</jedis.version>
