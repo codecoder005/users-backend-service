@@ -13,7 +13,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Runtime stage
-FROM amazoncorretto:21.0.7
+FROM amazoncorretto:21.0.10
 
 WORKDIR /app
 COPY --from=build /build/target/users-backend-service-1.0.0.jar /app/
